@@ -1,3 +1,5 @@
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
 public class VirtualThreadsDemo {
@@ -36,5 +38,14 @@ public class VirtualThreadsDemo {
 
     t1.join();
     t2.join();
+    }
+
+
+
+    private static void executorService() {
+        try(ExecutorService srv = Executors.newVirtualThreadPerTaskExecutor()){
+            srv.submit(VirtualThreadsDemo::handleUserRequests);
+            srv.submit(VirtualThreadsDemo::handleUserRequests);
+        }
     }
     }
